@@ -1,0 +1,137 @@
+<ContentNavigationDrawer>:
+
+    ScrollView:
+
+        MDList:
+
+            Image:
+                source:'logo.png'
+                size_hint_y: None
+                height:'250dp'
+
+            OneLineListItem:
+                icon:'android'
+                text: "Início"
+                size_hint_x: 1
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    root.screen_manager.current = "Home"
+
+            OneLineListItem:
+                text: "Dow Unico"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    root.screen_manager.current = "unico"
+
+            OneLineListItem:
+                text: "Dow PlayList"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    root.screen_manager.current = "playlist1"
+Screen:
+
+    MDTopAppBar:
+        id: toolbar
+        pos_hint: {"top": 1}
+        elevation: 5
+        title: "BruTha - Downloader"
+        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+
+
+    MDNavigationLayout:
+        x: toolbar.height
+
+        ScreenManager:
+
+            id: screen_manager
+
+            Screen:
+                name: 'Home'
+                text:'Home'
+                Image:
+                    source: 'atencao.png'
+                    pos_hint:{"center_x":.5, "center_y":.45}
+
+            Screen:
+                name: 'unico'
+                MDLabel:
+                    text:'Download Video Único'
+                    font_size:"20sp"
+                    pos_hint:{"center_x":.67, "center_y":.80}
+                    background_color: (1.0, 0.0, 0.0, 1.0)
+
+                MDTextField:
+                    size_hint_x:.99
+                    mode:"rectangle"
+                    hint_text:"Digite a URL"
+                    pos_hint:{"center_x":.5, "center_y":.72}
+                    id: tx
+                MDRaisedButton:
+                    text:"Download Video"
+                    background_color: (1.0, 0.0, 0.0, 1.0)
+                    pos_hint:{"center_x":.8, "center_y":.60}
+                    on_press: app.baixar()
+
+                MDRaisedButton:
+                    text:"Download MP3"
+                    background_color: (1.0, 0.0, 0.0, 1.0)
+                    pos_hint:{"center_x":.2, "center_y":.60}
+                    on_press: app.downloadaudio()
+                Image:
+                    source: 'fundo.png'
+                    size_hint_y: None
+                    height: 300
+                    width:300
+                    allow_stretch: True
+                    pos_hint:{"center_x":.5, "center_y":.27}
+                MDLabel:
+                    text:''
+                    font_size:"20sp"
+                    pos_hint:{"center_x":.80, "center_y":.52}
+                    background_color: (1.0, 0.0, 0.0, 1.0)
+                    id: box
+
+            Screen:
+                name: 'playlist1'
+                MDLabel:
+                    text:'Download PlayList'
+                    font_size:"20sp"
+                    pos_hint:{"center_x":.72, "center_y":.80}
+                    background_color: (1.0, 0.0, 0.0, 1.0)
+                MDTextField:
+                    size_hint_x:.99
+                    mode:"rectangle"
+                    hint_text:"Digite a URL"
+                    pos_hint:{"center_x":.5, "center_y":.72}
+                    id:tx2
+                MDRaisedButton:
+                    text:"Download PlayList"
+                    background_color: (1.0, 0.0, 0.0, 1.0)
+                    pos_hint:{"center_x":.8, "center_y":.60}
+                    on_press: app.varios()
+                MDRaisedButton:
+                    text:"Download MP3"
+                    background_color: (1.0, 0.0, 0.0, 1.0)
+                    pos_hint:{"center_x":.2, "center_y":.60}
+                    on_press: app.variosaudios()
+                Image:
+                    source: 'fundo.png'
+                    size_hint_y: None
+                    height: 300
+                    width:300
+                    allow_stretch: True
+                    pos_hint:{"center_x":.5, "center_y":.27}
+                MDLabel:
+                    text:''
+                    font_size:"20sp"
+                    pos_hint:{"center_x":.80, "center_y":.52}
+                    background_color: (1.0, 0.0, 0.0, 1.0)
+                    id: box2
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            md_bg_color: 1.0, 0.0, 0.0, 1.0
+
+            ContentNavigationDrawer:
+                screen_manager: screen_manager
+                nav_drawer: nav_drawer
